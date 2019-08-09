@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/master.html}">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+    <title>FUBC - List Customer</title>
+  </head>
+  <body>
+  	
+      <section layout:fragment="content">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-6">
+          	<h5 class="mb-1">List of Customers in our bank :</h5>
+          	<a th:href="@{/account/create}" class="btn btn-success" style="float: right; margin-bottom: 10px;">Add New Account</a>
+          	<div style="padding-top:20px">
+	          	<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Account No.</th>
+				      <th scope="col">CustomerNo.</th>
+				      <th scope="col">FirstName</th>
+				      <th scope="col">MiddleName</th>
+				      <th scope="col">LastName</th>
+				      <th scope="col">Balance</th>
+				      <th scope="col">Account Type</th>
+				      <th scope="col" colspan="2">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="account, iteration : ${accounts}">
+				      <th th:text="${iteration.count}"></th>
+				      <td th:text="${account.accountNumber}">Mark</td>
+				      <td th:text="${account.customer.customerNumber}"></td>
+				      <td th:text="${account.customer.firstName}"></td>
+				      <td th:text="${account.customer.middleName}"></td>
+				      <td th:text="${account.customer.lastName}"></td>
+				      <td th:text="${account.balance}"></td>
+				      <td th:text="${account.accountType.accountTypeName}"></td>
+				      <td><a th:href="@{/account/edit/{accountId} (accountId = ${account.accountId})}">Edit</a></td>
+				      <td><a th:href="@{/account/delete/{accountId} (accountId = ${account.accountId})}" onclick="return confirm('Are you going to delete this data ?')">Delete</a></td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+          </div>
+          
+         <div class="col-lg-4 col-md-3 col-sm-4" style="margin-top: 20px;">
+         	<div class="card">
+			  <h5 class="card-header">Net Liquidity</h5>
+			  <div class="card-body">
+			    <h5 class="card-title" th:text="${'$ ' + liquidity}"></h5>
+			    <p class="card-text">It represents the total amount of cash expected in the bank’s vault.</p>
+			    <a th:href="@{/}" class="btn btn-primary">Goto Home</a>
+			  </div>
+			</div>
+         </div>
+       </section>
+      
+  </body>
+</html>

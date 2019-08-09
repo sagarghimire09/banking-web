@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/master.html}">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+   <title>FUBC - Edit Account</title>
+</head>
+<body>
+	<section layout:fragment="content">
+	 <div class="row">
+	 	<div class="col-lg-12 col-md-12 col-sm-6">
+	 	 <h5 class="mb-1">Edit an Account here :</h5>
+         <a th:href="@{/account/list}" class="btn btn-success" style="float: right; margin-bottom: 10px;">List Account</a>
+         <div style="padding-top:20px; margin-top:10px;">
+         	<hr>
+         	<form th:action="@{/account/update}" method="post" th:object="${account}">
+         	  <input type="hidden" name="accountId" th:value="${account.accountId}">
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label for="accountNumber">Account Number</label>&nbsp;
+			      <span class="error" th:if="${#fields.hasErrors('accountNumber')}" th:errors="*{accountNumber}"></span>
+			      <input type="number" class="form-control" name="accountNumber" id="accountNumber" th:value="${account.accountNumber}" placeholder="Account Number">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label for="customer">Customer</label>&nbsp;
+			      <select th:field="*{customer}" class="form-control" id="customer">
+			      	<option th:each="cust : ${customers}" th:value="${cust.customerId}" th:text="${cust.customerNumber + ' --- ' + cust.firstName + ' ' + cust.lastName}"></option>
+			      </select>
+			    </div>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label for="balance">Balance</label>
+			      <input type="number" step=".01" class="form-control" name="balance" id="balance" th:value="${account.balance}" placeholder="Account Balance">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label for="accountType">Account Type</label>&nbsp;
+			      <select th:field="*{accountType}" class="form-control" id="accountType">
+			      	<option th:each="acct : ${accountTypes}" th:value="${acct.accountTypeId}" th:text="${acct.accountTypeName}"></option>
+			      </select>
+			    </div>
+			  </div>
+			  
+			  <button type="submit" class="btn btn-primary">Save</button>
+			</form>
+         </div>
+	 	</div>
+	 </div>
+	</section>
+	
+</body>
+</html>

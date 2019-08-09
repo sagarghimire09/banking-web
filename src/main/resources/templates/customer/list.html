@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/master.html}">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+    <title>FUBC - List Customer</title>
+  </head>
+  <body>
+  	
+      <section layout:fragment="content">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-6">
+          	<h5 class="mb-1">List of Customers in our bank :</h5>
+          	<a th:href="@{/customer/create}" class="btn btn-success" style="float: right; margin-bottom: 10px;">Add New Customer</a>
+          	<div style="padding-top:20px">
+	          	<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">CustomerNo.</th>
+				      <th scope="col">FirstName</th>
+				      <th scope="col">MiddleName</th>
+				      <th scope="col">LastName</th>
+				      <th scope="col">Email</th>
+				      <th scope="col">DOB</th>
+				      <th scope="col" colspan="2">Action</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="customer, iteration : ${customers}">
+				      <th th:text="${iteration.count}"></th>
+				      <td th:text="${customer.customerNumber}">Mark</td>
+				      <td th:text="${customer.firstName}"></td>
+				      <td th:text="${customer.middleName}"></td>
+				      <td th:text="${customer.lastName}"></td>
+				      <td th:text="${customer.emailAddress}"></td>
+				      <td th:text="${customer.dateOfBirth}"></td>
+				      <td><a th:href="@{/customer/edit/{customerId} (customerId = ${customer.customerId})}">Edit</a></td>
+				      <td><a th:href="@{/customer/delete/{customerId} (customerId = ${customer.customerId})}" onclick="return confirm('Are you going to delete this data ?')">Delete</a></td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+          </div>
+       </section>
+      
+  </body>
+</html>
